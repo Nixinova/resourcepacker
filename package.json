@@ -1,0 +1,28 @@
+{
+    "name": "resourcepacker",
+    "version": "1.0.0-pre1",
+    "description": "Easily and cleanly packs Minecraft resource packs from a messy working directory",
+    "keywords": [
+        "minecraft",
+        "resource pack"
+    ],
+    "files": [
+        "index.js"
+    ],
+    "main": "index.js",
+    "bin": {
+        "rpkr": "index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Nixinova/resourcepacker.git"
+    },
+    "author": "Nixinova (https://nixinova.com)",
+    "bugs": {
+        "url": "https://github.com/Nixinova/resourcepacker/issues"
+    },
+    "license": "MIT",
+    "dependencies": {
+        "copyfiles": "^2.3.0"
+    }
+}

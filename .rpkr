@@ -1,0 +1,14 @@
+name: Example Pack
+packver: 1.0.0
+mcver: 1.16.2
+mcsnap: 
+files:
+pack.png
+pack.mcmeta
+assets/**/*.png
+assets/**/*.mcmeta
+assets/**/*.json
+assets/**/*.lang
+assets/**/*.txt
+assets/**/*.fsh
+assets/**/*.bin
