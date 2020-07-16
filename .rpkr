@@ -1,7 +1,8 @@
 name: Example Pack
-packver: 1.0.0
+packver: 1.0.1
 mcver: 1.16.2
-mcsnap: 
+mcsnap: 20w29a
+description: &b<name> &6v<packver> &efor &aMinecraft &d<mcver> &c(<mcsnap>)
 files:
 pack.png
 pack.mcmeta

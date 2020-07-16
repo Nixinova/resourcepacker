@@ -20,11 +20,19 @@ The `.rpkr` configuration file can be edited to fine tune the output of your res
 * `packver`: The version of your resource pack. Defaults to "1.0.0".
 * `mcver`: The Minecraft version your resource pack is made for. Defaults to "1.16.x".
 * `mcsnap`: The Minecraft development version your resource pack is made for. Blank by default.
-* `files`: File globs that will be passed through into your output folder. More information below.
+* `description`: The content in the description field of the automatic `pack.mcmeta` file. Blank by default. Only generates an automatic `pack.mcmeta` when set. More information below
+* *`custom variables`*: Optional. Can contain any content. Can be used in the `description` field by surrounding the variable name in angle brackets (`<>`).
+* `files`: File globs that will be passed through into your output folder. Must be the last named parameter as it is followed by newline-separated globs. More information below.
 
-### Files
+#### Description
 
-By default, the following globs (file path formats) are found in the `.rpkr` configuration file. You can add or remove and globs that you like; for example, if you have a `readme.txt` file in the root directory that you want outputted, place `readme.txt` on its own line.
+The `description` parameter, when set, will be the contents of the `description` key of an automatically-generated `pack.mcmeta` file. An automatic `pack.mcmeta` file is only created when this parameter is set. Other parameters in `.rpkr` can be referenced by placing the parameter name in angle brackets (`<>`). Color codes can be declared using either ampersands (`&`) or section signs (`§`) followed by a hexidecimal digit. The value of the `pack_version` key in `pack.mcmeta` is determined by the value of `mcver`.
+
+For example, a `description` of `&b<name> &l<packver>` sets the `description` key of `pack.mcmeta` to the value of the `name` parameter in aqua followed by the contents of the `packver` parameter in bold.
+
+#### Files
+
+By default, the following globs (file path formats) are found in the `.rpkr` configuration file, below "`files:`". You can add or remove any globs as you see fit; for example, if you have a `readme.txt` file in the root directory that you want outputted, place `readme.txt` on its own line.
 
 ```
 pack.png
