@@ -1,11 +1,18 @@
 # Changelog
 
+## 1.0.0-pre3
+*2020-07-18*
+- **Breaking:** Changed configuration file from `.rpkr` (in a custom format) to `.rpkr.json` (in a JSON format).
+- Added support for automatic langugage generation by setting the values of language codes in the `.rpkr.json` configuration file.
+- Removed support for custom variables in the configuration file.
+
 ## 1.0.0-pre2
 *2020-07-16*
 - Added `description` property to `.rpkr`, which creates an automatic `pack.mcmeta` file if set.
   - Can contain references to other parameters in the `.rpkr` file (including custom ones) by enclosing the parameter name in angle brackets (`<>`).
   - Ampersands (`&`) are automatically converted to section signs (`§`) to become color codes.
   - Pack version is automatically generated from the value of `mcver`.
+- Added support for custom variables in the `.rpkr` configuration file.
 
 ## 1.0.0-pre1
 *2020-07-16*

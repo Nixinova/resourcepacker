@@ -1,72 +1,74 @@
 #!/usr/bin/env node
+const RPKR_VERSION = '1.0.0-pre3';
+
 const fs = require('fs');
 const copyfiles = require('copyfiles');
+const jsonformat = require('json-format');
 const log = str => console.log('<resourcepacker> ' + str);
 
-const RPKR_VERSION = '1.0.0-pre2';
-const CONFIG = { name: process.cwd().split(/\/|\\/).slice(-1), packver: '1.0.0', mcver: '1.16.x', mcsnap: '', description: '' };
-const RPKR_DEFAULT = `
-name: ${CONFIG.name}
-packver: ${CONFIG.packver}
-mcver: ${CONFIG.mcver}
-mcsnap: ${CONFIG.mcsnap}
-description: ${CONFIG.description}
-files:
-pack.png
-pack.mcmeta
-assets/**/*.png
-assets/**/*.mcmeta
-assets/**/*.json
-assets/**/*.lang
-assets/**/*.txt
-assets/**/*.fsh
-assets/**/*.bin
-`.trim();
-
-const PACKVERS = { '1.6,1.7,1.8': 1, '1.9,1.10': 2, '1.11,1.12': 3, '1.13,1.14': 4, '1.15,1.16': 5 };
+const CONFIG = {
+    name: process.cwd().split(/\/|\\/).slice(-1)[0],
+    packver: '1.0.0', mcver: '1.16.x', mcsnap: null,
+    description: null, languages: null,
+    files: [
+        "pack.png",
+        "pack.mcmeta",
+        "assets/**/*.png",
+        "assets/**/*.mcmeta",
+        "assets/**/*.json",
+        "assets/**/*.lang",
+        "assets/**/*.txt",
+        "assets/**/*.fsh",
+        "assets/**/*.bin"
+    ]
+};
+const PACK_FORMATS = { '1.6,1.7,1.8': 1, '1.9,1.10': 2, '1.11,1.12': 3, '1.13,1.14': 4, '1.15,1.16': 5 };
 
 function init() {
-    fs.writeFile('.rpkr', RPKR_DEFAULT, err => {
-        if (err) throw "FSWriteError: Cannot write to .rpkr configuration file";
-        else log("Successfully created config file .rpkr with default settings")
+    fs.writeFile('.rpkr.json', jsonformat(CONFIG), err => {
+        if (err) throw "FSWriteError: Cannot write to .rpkr.json configuration file";
+        else log("Successfully created config file .rpkr.json with default settings");
     });
 }
 
 function package(output) {
-    fs.readFile('.rpkr', 'utf8', (err, contents) => {
-        let hasError = false;
+    fs.readFile('.rpkr.json', 'utf8', (err, contents) => {
+        if (err) init();
+        let config = err ? CONFIG : JSON.parse(contents);
+        let { files, name, packver, mcver, mcsnap, description, languages } = config;
+        let outputFolder = output || `${name} ${packver} (${mcsnap || mcver})`;
 
-        let rpkrData = RPKR_DEFAULT.split('\n'), config = CONFIG;
-        if (err) init(); else rpkrData = contents.split('\n');
-
-        for (let param of rpkrData) {
-            let parts = param.split(':');
-            if (!parts[1]) break;
-            let key = parts[0];
-            let val = parts[1].slice(1).trim();
-            config[key] = val;
-        }
-        config.globs = rpkrData.slice(rpkrData.indexOf('files:') + 1);
-
-        let { globs, name, packver, mcver, mcsnap, description } = config;
-        let outputFolder = output || `${name} ${packver} (${mcsnap || mcver})`
         log(`Packaging version ${packver} of '${name}'...`);
         copyfiles(
-            [...globs, outputFolder], {},
+            [...files, outputFolder], {},
             (err) => {
                 const success = x => {
-                    log(`${x ? 'Uns' : 'S'}uccessfully packaged version ${packver} of '${name}' for Minecraft ${mcver}`);
+                    log(`${x == null ? 'Uns' : 'S'}uccessfully packaged version ${packver} of '${name}' for Minecraft ${mcver}`);
                 }
-                if (err) hasError = true, log('Error: ' + err), success(false);
+                if (err) log('Error: ' + err), success(false);
                 else if (description) {
-                    let packver = 0, mcverMajor = mcver.replace(/^(\d\.\d+).*/, '$1');
-                    for (let key in PACKVERS) { if (key.includes(mcverMajor)) packver = PACKVERS[key]; }
+
+                    let packFormat = 0, mcverMajor = mcver.replace(/^(\d\.\d+).*/, '$1');
+
+                    for (let key in PACK_FORMATS) {
+                        if (key.includes(mcverMajor)) packFormat = PACK_FORMATS[key];
+                    }
                     for (let item in config) {
                         description = description.replace(/&(?=\w)/g, '§').replace(RegExp('<' + item + '>', 'g'), config[item]);
                     }
-                    const mcmetaContent = `{\n  "pack": {\n    "pack_format": ${packver},\n    "description": ${JSON.stringify(description)}\n  }\n}`;
-                    fs.writeFile(outputFolder + '/pack.mcmeta', mcmetaContent, err => {
-                        if (err) hasError = true, log("FSWriteError: Could not create automatic pack.mcmeta file"), success(false);
+
+                    let mcmetaContent = { "pack": { "pack_format": packFormat, "description": description } };
+                    if (languages) {
+                        mcmetaContent.language = {};
+                        for (let lang in languages) {
+                            const matchRegex = /^\s*(.*?)\s*\((.*?)\)\s*/i;
+                            let [, name, region] = languages[lang].match(matchRegex);
+                            mcmetaContent.language[lang] = { "name": name, "region": region};
+                        }
+                    }
+
+                    fs.writeFile(outputFolder + '/pack.mcmeta', jsonformat(mcmetaContent, { type: 'space' }), err => {
+                        if (err) log("FSWriteError: Could not create automatic pack.mcmeta file"), success(false);
                         else log("Created automatic pack.mcmeta file"), success();
                     });
                 }
