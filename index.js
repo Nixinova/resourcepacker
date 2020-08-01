@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const RPKR_VERSION = '1.0.0-pre3';
+const RPKR_VERSION = '1.0.0';
 
 const fs = require('fs');
 const copyfiles = require('copyfiles');
@@ -7,6 +7,7 @@ const jsonformat = require('json-format');
 const log = str => console.log('<resourcepacker> ' + str);
 
 const CONFIG = {
+    configver: 2,
     name: process.cwd().split(/\/|\\/).slice(-1)[0],
     packver: '1.0.0', mcver: '1.16.x', mcsnap: null,
     description: null, languages: null,

@@ -1,6 +1,5 @@
-[![Latest version](https://img.shields.io/github/v/release/Nixinova/resourcepacker?label=latest&style=flat-square&include_prereleases)](https://github.com/Nixinova/resourcepacker/releases)
-[![npm version](https://img.shields.io/npm/v/resourcepacker?style=flat-square)](https://www.npmjs.com/package/resourcepacker)
-[![npm downloads](https://img.shields.io/npm/dt/resourcepacker?style=flat-square)](https://www.npmjs.com/package/resourcepacker)
+[![Latest version](https://img.shields.io/github/v/release/Nixinova/resourcepacker?label=latest&style=flat-square&logo=github)](https://github.com/Nixinova/resourcepacker/releases)
+[![npm downloads](https://img.shields.io/npm/dt/resourcepacker?style=flat-square&logo=npm)](https://www.npmjs.com/package/resourcepacker)
 [![Last updated](https://img.shields.io/github/release-date-pre/Nixinova/resourcepacker?label=updated&style=flat-square)](https://github.com/Nixinova/resourcepacker/releases)
 
 # resourcepacker
@@ -13,7 +12,7 @@ Install [resourcepacker on npm](https://www.npmjs.com/package/resourcepacker) by
 
 After installing resourcepacker, type **`rpkr init`** to ready your directory with a configuration file (`.rpkr.json`). For information on how to use this configuration file, please see the **Configuration** section below.
 
-To package a resource pack, simply type **`rpkr pack`** and your resource pack will be packaged into an output folder. You can control which directory the files are outputted to by placing the output folder name in quotes after this command; for example, `rpkr pack "My Pack 1.16"` outputs to folder "My Pack 1.16". If the output folder is not set, it defaults to the format "`name` `packver` (`mcver`)", where each value comes from the `.rpkr.json` file.
+To package a resource pack, simply type **`rpkr pack`** and your resource pack will be packaged into an output folder. You can control which directory the files are outputted to by placing the output folder name in quotes after this command; for example, `rpkr pack "My Pack 1.16"` outputs to folder "My Pack 1.16". If the output folder is not set, it defaults to the format "`<name>` `<packver>` (`<mcver>`)", where each value comes from the `.rpkr.json` file.
 
 ## Configuration
 
@@ -21,6 +20,7 @@ The `.rpkr.json` configuration file can be edited to fine tune the output of you
 
 ### Parameters
 
+* `configver`: The `.rpkr.json` file version. Leave as-is.
 * `name`: The name of your resource pack. Defaults to the name of the current folder.
 * `packver`: The version of your resource pack. Defaults to "1.0.0".
 * `mcver`: The Minecraft version your resource pack is made for. Defaults to "1.16.x".
