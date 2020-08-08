@@ -6,6 +6,7 @@ const copyfiles = require('copyfiles');
 const jsonformat = require('json-format');
 
 const log = str => console.log('<resourcepacker> ' + str);
+const escapeRegex = str => str.replace(/[.*+?^/${}()|[\]\\]/g, '\\$&');
 
 const CONFIG = {
     configver: 2,
@@ -70,7 +71,9 @@ function package(output) {
                         }
                     }
                     for (let item in config) {
-                        description = description.replace(/&(?=[0-9a-fk-or])/g, '§').replace(RegExp(`<${item}>`, 'g'), config[item]);
+                        description = description
+                            .replace(/&(?=[0-9a-fk-or])/g, '§') // formatting codes
+                            .replace(RegExp(`<${escapeRegex(item)}>`, 'g'), config[item]) // custom parameters
                     }
 
                     let mcmetaContent = { "pack": { "pack_format": parseInt(packFormat), "description": description } };
@@ -79,7 +82,7 @@ function package(output) {
                         for (let lang in languages) {
                             const matchRegex = /^\s*(.*?)\s*\((.*?)\)\s*/i;
                             let [, name, region] = languages[lang].match(matchRegex);
-                            mcmetaContent.language[lang] = { "name": name, "region": region};
+                            mcmetaContent.language[lang] = { "name": name, "region": region };
                         }
                     }
 

@@ -10,9 +10,9 @@
 
 Install [resourcepacker on npm](https://www.npmjs.com/package/resourcepacker) by typing **`npm install -g resourcepacker`** in the command prompt. You must have Node.js installed.
 
-After installing resourcepacker, type **`rpkr init`** to ready your directory with a configuration file (`.rpkr.json`). For information on how to use this configuration file, please see the **Configuration** section below.
+After installing resourcepacker, `cd` to the directory your resource is located in, then type **`rpkr init`** to ready your directory with a configuration file (`.rpkr.json`). Customise the values in this configuration file to your liking. For information on how to use this configuration file, please see the **Configuration** section below.
 
-To package a resource pack, simply type **`rpkr pack`** and your resource pack will be packaged into an output folder. You can control which directory the files are outputted to by placing the output folder name in quotes after this command; for example, `rpkr pack "My Pack 1.16"` outputs to folder "My Pack 1.16". If the output folder is not set, it defaults to the format "`<name>` `<packver>` (`<mcver>`)", where each value comes from the `.rpkr.json` file.
+To package a resource pack, simply type **`rpkr pack`** and your resource pack will be packaged into an output folder. You can control which directory the files are outputted to by placing the output folder name in quotes after this command; for example, `rpkr pack "My Pack 1.16"` outputs to folder "My Pack 1.16". If the output folder is not set in the command line, it defaults to the format "`<name>` `<packver>` (`<mcver>`)", where each value comes from the `.rpkr.json` file.
 
 ## Configuration
 
@@ -56,4 +56,4 @@ assets/**/*.bin
 ```
 
 ## Try it out
-Clone [this repository](https://github.com/Nixinova/resourcepacker.git), `cd` into that directory, and then type **`node index.js pack`** to pack the contents of this repository into a clean output folder. You'll see that out of all of the messy files in this folder, only the `assets`, `pack.png`, and `pack.mcmeta` files are outputted.
+Clone [this repository](https://github.com/Nixinova/resourcepacker.git) then type **`cd resourcepacker && npm install && node index.js pack`** to pack the contents of this repository into a clean output folder. You'll see that out of all of the messy files in this folder, only the `assets`, `pack.png`, and `pack.mcmeta` files are outputted.

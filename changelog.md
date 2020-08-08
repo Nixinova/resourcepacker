@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+*2020-08-08*
+- Fixed special characters in custom parameter names not being escaped during substituting.
+
 ## 1.0.1
 *2020-08-08*
 - Added support for pack version 6 (*Minecraft* 1.16.2+).
