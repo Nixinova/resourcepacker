@@ -1,5 +1,5 @@
-[![Latest version](https://img.shields.io/github/v/release/Nixinova/resourcepacker?label=latest&style=flat-square&logo=github)](https://github.com/Nixinova/resourcepacker/releases)
-[![npm downloads](https://img.shields.io/npm/dt/resourcepacker?style=flat-square&logo=npm)](https://www.npmjs.com/package/resourcepacker)
+[![Latest version](https://img.shields.io/github/v/release/Nixinova/resourcepacker?label=latest&style=flat-square)](https://github.com/Nixinova/resourcepacker/releases)
+[![npm downloads](https://img.shields.io/npm/dt/resourcepacker?style=flat-square)](https://www.npmjs.com/package/resourcepacker)
 [![Last updated](https://img.shields.io/github/release-date-pre/Nixinova/resourcepacker?label=updated&style=flat-square)](https://github.com/Nixinova/resourcepacker/releases)
 
 # resourcepacker
@@ -16,7 +16,7 @@ To package a resource pack, simply type **`rpkr pack`** and your resource pack w
 
 ## Configuration
 
-The `.rpkr.json` configuration file can be edited to fine tune the output of your resource pack. Comments can be added using a hash (`#`).
+The `.rpkr.json` configuration file can be edited to fine tune the output of your resource pack. Available parameters can be found below, with further explanations found in sub-sections.
 
 ### Parameters
 

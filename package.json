@@ -1,6 +1,6 @@
 {
     "name": "resourcepacker",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Easily and cleanly packages Minecraft resource packs from a messy working directory",
     "keywords": [
         "minecraft",

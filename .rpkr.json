@@ -1,10 +1,14 @@
 {
-	"name": "resourcepacker",
-	"packver": "2.0.0",
+	"configver": 2,
+	"name": "Example Pack",
+	"packver": "1.0",
 	"mcver": "1.16.x",
 	"mcsnap": null,
-	"description": null,
-	"languages": null,
+	"rpkrver (custom param)": "1.0.1",
+	"description": "Example resourcepacker <rpkrver (custom param)> configuration file v<packver>",
+	"languages": {
+		"en_xx": "English (Custom)"
+	},
 	"files": [
 		"pack.png",
 		"pack.mcmeta",

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+*2020-08-08*
+- Added support for pack version 6 (*Minecraft* 1.16.2+).
+
 ## 1.0.0
 *2020-08-01*
 - Added `configver` parameter to the `.rpkr.json` configuration file.
