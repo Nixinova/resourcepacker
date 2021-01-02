@@ -1,7 +1,7 @@
 {
     "name": "resourcepacker",
-    "version": "1.0.2",
-    "description": "Easily and cleanly packages Minecraft resource packs from a messy working directory",
+    "version": "1.0.3",
+    "description": "Packages Minecraft resource packs easily and cleanly from a messy working directory",
     "keywords": [
         "minecraft",
         "resourcepack"
@@ -23,7 +23,7 @@
     },
     "license": "MIT",
     "dependencies": {
-        "copyfiles": "^2.3.0",
+        "copyfiles": "^2.4.1",
         "json-format": "^1.0.1"
     }
 }

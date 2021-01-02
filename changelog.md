@@ -1,8 +1,16 @@
 # Changelog
 
+## 1.0.3
+*2021-01-02*
+- Added support for pack version 7 (*Minecraft* 1.17+).
+- Added a warning when initialising inside an existing project.
+- Changed the output folder name to more accurately combine the release and development versions.
+- Changed the output of `rpkr` (without any parameters) to display a welcome message instead of an error.
+- Bumped copyfiles dependency from 2.3.0 to 2.4.1.
+
 ## 1.0.2
 *2020-08-08*
-- Fixed special characters in custom parameter names not being escaped during substituting.
+- Fixed special characters in custom parameter names not being escaped when substituting.
 
 ## 1.0.1
 *2020-08-08*
