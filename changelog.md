@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+*2021-01-21*
+- Added support for packaging to a zip file by appending `.zip` to the output name.
+- Added `--folder` flag (alias `-f`) to package to an automatically-named folder instead of the default zip file.
+- Changed default packaging from a folder to a zip file.
+
 ## 1.0.3
 *2021-01-02*
 - Added support for pack version 7 (*Minecraft* 1.17+).

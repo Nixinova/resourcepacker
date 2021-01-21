@@ -1,24 +1,17 @@
 {
 	"configver": 2,
 	"name": "Example Pack",
-	"packver": "0.2",
+	"packver": "0.3",
 	"rpkrver (custom param)": "1.0.3",
-	"mcver": "1.16.4",
+	"mcver": "1.16.5",
 	"mcsnap": null,
 	"description": "Example &bresourcepacker &r<rpkrver (custom param)> configuration file &ev<packver>",
 	"languages": {
 		"en_xx": "English (Custom)"
 	},
 	"files": [
-		"pack.png",
+		"assets/**",
 		"pack.mcmeta",
-		"assets/**/*.png",
-		"assets/**/*.mcmeta",
-		"assets/**/*.json",
-		"assets/**/*.lang",
-		"assets/**/*.txt",
-		"assets/**/*.fsh",
-		"assets/**/*.bin",
-		"readme.md"
+		"pack.png"
 	]
 }

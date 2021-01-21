@@ -1,7 +1,7 @@
 {
     "name": "resourcepacker",
-    "version": "1.0.3",
-    "description": "Packages Minecraft resource packs easily and cleanly from a messy working directory",
+    "version": "1.1.0",
+    "description": "Package Minecraft resource packs easily and cleanly from a messy working directory",
     "keywords": [
         "minecraft",
         "resourcepack"
@@ -21,9 +21,11 @@
     "bugs": {
         "url": "https://github.com/Nixinova/resourcepacker/issues"
     },
-    "license": "MIT",
+    "license": "ISC",
     "dependencies": {
+        "archiver": "^5.2.0",
         "copyfiles": "^2.4.1",
-        "json-format": "^1.0.1"
+        "json-format": "^1.0.1",
+        "regex-escape": "^3.4.10"
     }
 }
