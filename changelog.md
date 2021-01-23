@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0
+*2021-01-23*
+- Added Node.js exports, `init(options?)` and `pack(input, output, options?)`
+- Added optional `<input>` command-line option to `rpkr pack`, changing the syntax to `rpkr pack [<input>] [<output>|--force]`.
+- Changed default file globs to be more specific.
+
 ## 1.1.1
 *2021-01-23*
 - Refactored pack format information to use package `pack-format`.
