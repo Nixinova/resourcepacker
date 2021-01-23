@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-const RPKR_VERSION = '1.1.0';
+const RPKR_VERSION = '1.1.1';
 
 const fs = require('fs');
 const copyfiles = require('copyfiles');
 const archiver = require('archiver');
-const jsonformat = require('json-format');
-const escapeRegex = require('regex-escape')
+const jsonFormat = require('json-format');
+const packFormat = require('pack-format');
 
 const log = str => console.log('<resourcepacker> ' + str);
 
@@ -29,22 +29,13 @@ const CONFIG = {
         "assets/**/*.bin"
     ]
 };
-const PACK_FORMATS = {
-    1: ['1.6.x', '1.7.x', '1.8.x'],
-    2: ['1.9.x', '1.10.x'],
-    3: ['1.11.x', '1.12.x'],
-    4: ['1.13.x', '1.14.x'],
-    5: ['1.15.x', '1.16', '1.16.1'],
-    6: ['1.16.x'],
-    7: ['1.17.x'],
-};
 
 function init({ force }) {
     if (fs.existsSync('.rpkr.json') && !force) {
         log('Warning: This folder is already initialised with an .rpkr.json configuration file.');
         log('Type `rpkr init force` to overwrite it with default settings.');
     }
-    else fs.writeFile('.rpkr.json', jsonformat(CONFIG), err => {
+    else fs.writeFile('.rpkr.json', jsonFormat(CONFIG), err => {
         if (err) throw 'FSWriteError: Cannot write to .rpkr.json configuration file.';
         else {
             if (force) log('Warning: Overwriting existing .rpkr.json configuration file.');
@@ -69,42 +60,35 @@ function package(output, { zipped }) {
         }
         let outputPathName = output || `${name} ${packver} (${versionLabel})`;
 
-        // Set proper pack_format
-        let packFormat = 0;
-        for (let key in PACK_FORMATS) {
-            for (let val of PACK_FORMATS[key]) {
-                const matchExact = mcver == val;
-                const matchPartial = val.endsWith('.x') && val.replace('.x', '') == mcver.replace(/(^1\.\d+)\.\d+$/, '$1');
-                if (matchExact || matchPartial) packFormat = key;
-            }
-        }
-
-        // Compile description
+        // Create automatic mcmeta file
         if (description) {
-            for (let item in config) {
+            let mcmetaContent = { pack: {} };
+            mcmetaContent.pack.pack_format = packFormat(versionLabel) || packFormat(mcver);
+
+            /// Compile description
+            for (const item in config) {
+                let escapedItem = item.replace(/[-\[\]{}().*+?^$\\\/|]/g, "\\$&");
                 description = description
                     .replace(/&([0-9a-fk-or])/g, '§$1') // formatting codes
-                    .replace(RegExp(`<${escapeRegex(item)}>`, 'g'), config[item]) // custom parameters
+                    .replace(RegExp(`<${escapedItem}>`, 'g'), config[item]) // custom parameters
             }
-        }
+            mcmetaContent.pack.description = description;
 
-        // Parse languages
-        const mcmetaContent = { pack: { pack_format: parseInt(packFormat), description } };
-        if (languages) {
-            mcmetaContent.language = {};
-            for (let lang in languages) {
-                const matchRegex = /^\s*(.*?)\s*\((.*?)\)\s*/i;
-                let [, name, region] = languages[lang].match(matchRegex);
-                mcmetaContent.language[lang] = { name, region };
+            /// Parse languages
+            if (languages) {
+                mcmetaContent.language = {};
+                for (const lang in languages) {
+                    const matchRegex = /^\s*(.*?)\s*\((.*?)\)\s*/i;
+                    let [, name, region] = languages[lang].match(matchRegex);
+                    mcmetaContent.language[lang] = { name, region };
+                }
             }
-        }
 
-        // Create automatic pack.mcmeta
-        if (description) {
+            /// Write mcmeta to disc
             if (!zipped || output.includes('/')) fs.mkdirSync(outputPathName, { recursive: true });
             fs.writeFileSync(
                 (zipped ? 'temp-' : outputPathName + '/') + 'pack.mcmeta',
-                jsonformat(mcmetaContent, { type: 'space' }),
+                jsonFormat(mcmetaContent, { type: 'space' }),
                 err => {
                     if (err) log('FSWriteError: Could not create automatic pack.mcmeta file');
                     else log('Created automatic pack.mcmeta file');

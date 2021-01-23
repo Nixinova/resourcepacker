@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1
+*2021-01-23*
+- Refactored pack format information to use package `pack-format`.
+
 ## 1.1.0
 *2021-01-21*
 - Added support for packaging to a zip file by appending `.zip` to the output name.
