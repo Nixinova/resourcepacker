@@ -2,7 +2,7 @@
 	"configver": 2,
 	"name": "Example Pack",
 	"packver": "0.3",
-	"rpkrver (custom param)": "1.0.3",
+	"rpkrver (custom param)": "1.2.x",
 	"mcver": "1.16.5",
 	"mcsnap": null,
 	"description": "Example &bresourcepacker &r<rpkrver (custom param)> configuration file &ev<packver>",

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1
+*2021-03-06*
+- Changed default CLI packing behavior to output to a zip file instead of a folder.
+- Fixed invalid versions not outputting a `pack_format`.
+- Refactored code to be written in TypeScript.
+
 ## 1.2.0
 *2021-01-23*
 - Added Node.js exports, `init(options?)` and `pack(input, output, options?)`
